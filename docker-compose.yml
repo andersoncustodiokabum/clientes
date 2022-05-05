@@ -1,0 +1,24 @@
+version: '3'
+services:
+    web:
+        container_name: web_cgi
+        build:
+            context: .
+        volumes:
+            - ./app:/var/www
+        ports:
+            - "8080:80"
+    mysql:
+        image: mysql:5.7
+        environment:
+            MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+            MYSQL_DATABASE: clientes
+        ports:
+        - "3307:3306"
+        command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+        volumes:
+        - mysql_data:/var/lib/mysql
+
+volumes:
+    mysql_data:
+        driver: local
