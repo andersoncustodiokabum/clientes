@@ -11,7 +11,7 @@ services:
     mysql:
         image: mysql:5.7
         environment:
-            MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+            MYSQL_ROOT_PASSWORD: "root"
             MYSQL_DATABASE: clientes
         ports:
         - "3307:3306"
