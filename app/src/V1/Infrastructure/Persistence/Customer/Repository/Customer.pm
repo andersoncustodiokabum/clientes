@@ -1,17 +1,22 @@
-package App::Model::Customer;
+package V1::Infrastructure::Persistence::Customer::Repository::Customer;
 use strict;
 use warnings FATAL => 'all';
 
-use App::Entity::Customer;
+use V1::Business::Domain::Customer::Entity::Customer;
 
 sub new {
     my ($class, $dbh) = @_;
-    bless {
+
+    my $self =  {
         dbh => $dbh
-    }, $class;
+    };
+    
+    bless $self, $class;
+    
+    $self;
 }
 
-sub all {
+sub get_all {
     my $self = shift;
 
     my $sql = "SELECT id, firstname, lastname FROM customer";
@@ -21,7 +26,9 @@ sub all {
     my @customers = ();
 
     while (my @row = $sth->fetchrow_array()) {
-        push(@customers, App::Entity::Customer->new({ id => $row[0], firstname => $row[1], lastname => $row[2] }));
+        push @customers, V1::Business::Domain::Customer::Entity::Customer->new(
+            { id => $row[0], firstname => $row[1], lastname => $row[2] }
+        );
     }
 
     $sth->finish();
@@ -35,6 +42,5 @@ sub create {
     my $sth = $self->{dbh}->prepare($sql);
     $sth->execute($customer->get_firstname, $customer->get_lastname);
 }
-
 
 1;

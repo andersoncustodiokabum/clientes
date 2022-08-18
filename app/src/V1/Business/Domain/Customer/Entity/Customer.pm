@@ -1,15 +1,20 @@
-package App::Entity::Customer;
+package V1::Business::Domain::Customer::Entity::Customer;
+
 use strict;
 use warnings FATAL => 'all';
 
 sub new {
     my ($class, $args) = @_;
-
-    bless {
+    
+    my $self = {
         id => $args->{id},
         firstname => $args->{firstname},
         lastname => $args->{lastname}
-    }, $class;
+    };
+    
+    bless $self, $class;
+    
+    $self;
 }
 
 sub get_id {

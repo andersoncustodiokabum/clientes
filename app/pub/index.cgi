@@ -9,9 +9,11 @@ use warnings FATAL => 'all';
 
 use CGI qw/:standard/;
 use Framework::DI::Container;
-use App::services;
+use Framework::Router;
+use Server::services;
+use Server::routers;
 
-my $container = Framework::DI::Container->new(\%App::services::definitions);
+my $container = Framework::DI::Container->new(\%Server::services::definitions);
 
 my $controler = $container->get('customer_controller');
 $controler->index();

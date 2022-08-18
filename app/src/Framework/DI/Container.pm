@@ -4,11 +4,15 @@ use warnings FATAL => 'all';
 
 sub new {
     my ($class, $definitions) = @_;
-
-    bless {
+    
+    my $self = {
         definitions => $definitions,
-        resolved_entries => { }
-    }, $class;
+        resolved_entries => {}
+    };
+    
+    bless $self, $class;
+    
+    $self;
 }
 
 sub get {
